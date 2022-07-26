@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
-function ViewPerson() {
+function ViewPerson(props) {
   const navigate = useNavigate();
   const [person, setPerson] = useState(null);
   const location = useLocation();
-  const { id } = useParams();
+
+  console.log("viewing person", { person, location });
 
   useEffect(() => {
     if (location.state) {
@@ -14,16 +15,26 @@ function ViewPerson() {
     }
   }, [location]);
 
-  console.log("viewing person", { person, location });
+  if (!person) return <div>Loading...</div>;
+
   return (
     <>
       <h1>View Profile</h1>
       <button onClick={() => navigate(-1)}>Back</button>
       <ul>
-        <li>Name: </li>
-        <li>Gender:</li>
-        <li>location:</li>
+        <img src={person.picture.medium} alt="picture" />
+
+        <li>
+          Name: {person.name.first} {person.name.last}
+        </li>
+        <li>Gender: {person.gender}</li>
+        <li>
+          location: {person.location.city}, {person.location.country}
+        </li>
       </ul>
+      <Link to="/view/hire" state={{ person }}>
+        Hire this person
+      </Link>
     </>
   );
 }

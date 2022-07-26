@@ -1,6 +1,3 @@
-import { useLocation, useParams } from "react-router";
-import { useEffect, useState } from "react";
-
 function PeopleListItem(props) {
   const { person } = props;
 

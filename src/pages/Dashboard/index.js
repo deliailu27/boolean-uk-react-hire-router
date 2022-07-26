@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router";
 
 import PeopleList from "./components/PeopleList";
 
@@ -11,9 +10,10 @@ function Dashboard(props) {
     fetch(`https://randomuser.me/api/?results=50`)
       .then((res) => res.json())
       .then((data) => {
+        console.log("my data:", data);
         setPeople(data.results);
       });
-  }, [Dashboard]);
+  }, []);
 
   console.log("people:", people);
 
